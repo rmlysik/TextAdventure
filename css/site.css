@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F9F8F6;
+}
+
+.content {
+  padding-left: 15px;
+  font-family: Courier New, monospace;
+  font-weight: normal;
+  font-size: 18px;
+  color: #222222;
+  line-height: 1.5em;
+}
+
+.input {
+  margin: 0 0 0 -2000px;
+}

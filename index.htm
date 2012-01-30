@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>Text Adventure</title>
+    <link type="text/css" rel="stylesheet" href="css/site.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="js/item.js"></script>
+    <script src="js/room.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/game.js"></script>
+    <script type="text/javascript">
+    
+	    var game = new Game("Haunted Mansion", "Will you survive the night?");
+	    
+	    function setFocus()
+	    {
+	      var output = document.getElementById("output");
+	      var input = document.getElementById("input");
+	      game.create();
+	      output.innerHTML = game.toString();
+	      output.innerHTML += game.look();
+        output.innerHTML += "> ";
+        input.focus();
+	    }
+	    
+	    function processCommand() {
+	      var input = document.getElementById("input");
+	      var output = document.getElementById("output");
+	      var command = document.getElementById("command");
+        
+        output.innerHTML += command.innerHTML;
+        
+        output.innerHTML += "<br/>";
+        
+        output.innerHTML += game.processCommand(command.innerHTML);
+
+        output.innerHTML += "> ";
+        
+        command.innerHTML = "";
+        
+        input.value = "";
+        
+        window.scrollTo(0,document.body.scrollHeight);
+      }
+        
+      function keyPressed(e) {        
+	      var command = document.getElementById("command");
+        
+        if (window.event) {
+          keyCode = e.keyCode;
+        }
+        else if (e.which) {
+          keyCode = e.which;
+        }
+        
+        if (keyCode == 8) {
+          var text = command.innerHTML;
+          
+          command.innerHTML = text.substr(0, text.length - 1);
+        }
+        else if (keyCode == 13) {
+          processCommand();
+        }
+        else if ((keyCode >= 32) && (keyCode <= 126)) {
+          command.innerHTML += String.fromCharCode(keyCode);
+        }
+      }
+	    
+    </script>
+  </head>
+  <body onload="setFocus()">
+    <div class="content" id="content" onClick="input.focus();">
+      <span id="output"></span>
+      <span class="command" id="command"></span>
+      <input type="text" class="input" id="input" onkeypress="keyPressed(event);"></input>
+    </div>     
+  </body>
+</html>
